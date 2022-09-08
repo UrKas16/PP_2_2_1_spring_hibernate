@@ -1,0 +1,12 @@
+hiber\dao\UserDaoImp.class
+hiber\model\User.class
+hiber\service\CarServiceImpl.class
+hiber\model\Car.class
+hiber\MainApp.class
+hiber\config\AppConfig.class
+hiber\service\UserServiceImp.class
+hiber\dao\CarDao.class
+hiber\service\UserService.class
+hiber\dao\CarDaoImpl.class
+hiber\service\CarService.class
+hiber\dao\UserDao.class
