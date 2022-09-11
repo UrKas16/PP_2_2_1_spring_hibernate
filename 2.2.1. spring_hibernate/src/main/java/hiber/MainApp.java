@@ -17,11 +17,10 @@ public class MainApp {
         UserService userService = context.getBean(UserService.class);
 
 
-        userService.add(new User("User1", "Lastname1", "user1@mail.ru", new Car()));
-        userService.add(new User("User2", "Lastname2", "user2@mail.ru", new Car("BMW", 15)));
-        userService.add(new User("User3", "Lastname3", "user3@mail.ru", new Car("Audi", 98)));
-        userService.add(new User("User4", "Lastname4", "user4@mail.ru", new Car("None", 2)));
-
+        userService.add(new User("Ivam", "Ivanov", "ivan@mail.ru", new Car("lada", 2012)));
+        userService.add(new User("Sasha", "Sashkov", "sasha@mail.ru", new Car("kia", 2011)));
+        userService.add(new User("Vasya", "Vasilev", "vasya@mail.ru", new Car("bmw", 2015)));
+        userService.add(new User("Oleg", "Olegov", "oleg@mail.ru", new Car("audi", 2020)));
 
         List<User> users = userService.listUsers();
         for (User user : users) {
@@ -34,7 +33,7 @@ public class MainApp {
             System.out.println();
         }
 
-        System.out.println(userService.getUser("BMW", 15).toString());
+        System.out.println(userService.getUserByCar("bmw", 2015));
         context.close();
     }
 }

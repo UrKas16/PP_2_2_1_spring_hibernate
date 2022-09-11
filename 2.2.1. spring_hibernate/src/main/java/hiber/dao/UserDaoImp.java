@@ -1,5 +1,6 @@
 package hiber.dao;
 
+import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -29,10 +30,24 @@ public class UserDaoImp implements UserDao {
     }
 
     @Transactional
-    public User getUser(String model, int series) {
-        String request = "From User where Car.model = :model and Car.series = :series";
-        Query<User> query = sessionFactory.getCurrentSession().createQuery(request).setParameter("model", model).setParameter("series", series);
-        return query.getSingleResult();
+    public User getUserByCar(String model, int series) {
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createQuery("from Car where model = :model and series = :series")
+                .setParameter("model", model)
+                .setParameter("series", series);
+        List<Car> carList = query.getResultList();
+        if (!carList.isEmpty()) {
+
+            Car car = carList.get(0);
+
+            return listUsers().stream()
+                    .filter(u -> !(u.getCar() == null))
+                    .filter(u -> u.getCar().equals(car))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return null;
     }
 
 }

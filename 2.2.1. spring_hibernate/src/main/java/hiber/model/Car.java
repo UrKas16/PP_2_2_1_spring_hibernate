@@ -1,28 +1,31 @@
 package hiber.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "car")
-public class Car implements Serializable {
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
+
 
     @Column
     private String model;
     @Column
     private int series;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "series", referencedColumnName = "series")
-    private User user;
+//    @OneToOne(mappedBy = "car")
+//    private User user;
 
     public Car() {
 
     }
 
+    @Autowired
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
@@ -63,5 +66,18 @@ public class Car implements Serializable {
                 ", model='" + model + '\'' +
                 ", series=" + series +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+        Car car = (Car) o;
+        return series == car.series && Objects.equals(carId, car.carId) && Objects.equals(model, car.model);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(carId, model, series);
     }
 }
